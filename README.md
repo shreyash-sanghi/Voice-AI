@@ -10,6 +10,9 @@ Powered by Google Gemini · Built with React + Node.js
 
 </div>
 
+<img src="./frontend/src/assets/image1.png" alt="VoiceAI image1"  />
+<img src="./frontend/src/assets/image2.png" alt="VoiceAI image2"  />
+<img src="./frontend/src/assets/image3.png" alt="VoiceAI image3" />
 
 ## 📋 Table of Contents
 
