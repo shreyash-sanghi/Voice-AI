@@ -580,8 +580,6 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 <div align="center">
 
-Made with ❤️ in India 🇮🇳
-
 **[⬆ Back to top](#voiceai--ai-voice-assistant-for-websites)**
 
 </div>
