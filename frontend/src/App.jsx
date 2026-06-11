@@ -13,8 +13,8 @@ import Docs from './pages/DOCS'
 import { Toaster } from "react-hot-toast"
 import Contact from './pages/ContactUs'
 
-export const ServerUrl = "http://localhost:8000"
-export const CLIENT_URL = "http://localhost:5173"
+export const ServerUrl = import.meta.env.VITE_API_URL || "http://localhost:8000"
+export const CLIENT_URL = import.meta.env.VITE_ASSET_URL || "http://localhost:5173"
 
 function App() {
   const [user, setUser] = useState(null)

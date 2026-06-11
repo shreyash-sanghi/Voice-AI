@@ -78,7 +78,7 @@ function Builder({ user, setUser }) {
   const remainingMessages = Math.max(0, (user?.requestLimit || 0) - (user?.totalMessages || 0))
   const remainingDays = user?.proExpiresAt ? Math.max(0, Math.ceil((new Date(user.proExpiresAt) - new Date()) / (1000 * 60 * 60 * 24))) : 0
 
-  const embedCode = `<script src="${CLIENT_URL}/assistant.js" data-user-id="${user?._id}"></script>`
+  const embedCode = `<script src="${CLIENT_URL}/assistant.js"\n  data-user-id="${user?._id}"\n  data-api-url="${ServerUrl}"\n></script>`
 
   const statCards = [
     { label: 'Current Plan', value: user?.plan, cap: true },

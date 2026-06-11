@@ -3,6 +3,11 @@
 
     const script = document.currentScript;
     const userId = script?.dataset?.userId;
+    // Derive asset base from wherever this script is hosted (works on any site)
+    const ASSET_URL = new URL(script.src).origin;
+    // API URL must be provided via data-api-url (backend lives on a different server)
+    const API_URL = (script?.dataset?.apiUrl || "http://localhost:8000").replace(/\/$/, "");
+
 
     if (!userId) {
         console.warn("[VoiceAI] Missing data-user-id attribute on script tag.");
@@ -14,7 +19,7 @@
     // ─── Load CSS ─────────────────────────────────────────────────────────────
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "http://localhost:5173/assistant.css";
+    link.href = `${ASSET_URL}/assistant.css`;
     document.head.appendChild(link);
 
     // ─── Build Popup ──────────────────────────────────────────────────────────
@@ -57,7 +62,7 @@
         </div>
         <div class="shifra-input-row">
             <button class="shifra-mic" aria-label="Start voice input">
-              <img src="http://localhost:5173/mic.svg" alt="mic" class="shifra-mic-icon"/>
+              <img src="${ASSET_URL}/mic.svg" alt="mic" class="shifra-mic-icon"/>
             </button>
             <div class="shifra-text-group">
                 <input type="text" class="shifra-text-input" placeholder="Type a message..." />
@@ -75,7 +80,7 @@
     const btn = document.createElement("button");
     btn.className = "shifra-btn theme-dark";
     btn.setAttribute("aria-label", "Open AI Assistant");
-    btn.innerHTML = `<img src="http://localhost:5173/logo.png" alt="VoiceAI"/>`;
+    btn.innerHTML = `<img src="${ASSET_URL}/logo.png" alt="VoiceAI"/>`;
     document.body.appendChild(btn);
 
     // ─── Toggle open/close ────────────────────────────────────────────────────
@@ -89,7 +94,7 @@
     // ─── Fetch config ─────────────────────────────────────────────────────────
     const loadAssistant = async () => {
         try {
-            const res = await fetch(`http://localhost:8000/api/assistant/config/${userId}`);
+            const res = await fetch(`${API_URL}/api/assistant/config/${userId}`);
             const data = await res.json();
             if (data?.user) {
                 assistantConfig = data.user;
@@ -155,7 +160,7 @@
         wave.classList.add("active");
 
         try {
-            const res = await fetch("http://localhost:8000/api/assistant/ask", {
+            const res = await fetch(`${API_URL}/api/assistant/ask`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: transcript, userId }),
