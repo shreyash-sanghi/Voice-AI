@@ -11,16 +11,21 @@ import billingRouter from "./Routes/billing.route.js"
 
 
 const app = express()
-const privateCors =
-  cors({
+const privateCors = cors({
+    origin: function(origin, callback) {
+        const allowedOrigins = [
+            "http://localhost:5173",
+            process.env.FRONTEND_URL
+        ].filter(Boolean);
 
-    origin: [
-      "http://localhost:5173"
-    ],
-
+        if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true
-
-  });
+});
 
   const publicCors =
   cors({
